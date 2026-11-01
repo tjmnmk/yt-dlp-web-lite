@@ -113,7 +113,10 @@ if (!file_exists($video_file)) {
     echo "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><title>Downloading...</title>";
     echo "<link rel=\"stylesheet\" href=\"style.css\"></head><body>";
     echo "<div style=\"width:80%;max-width:600px;text-align:center;font-family:system-ui,sans-serif\">";
-    echo "<p>Downloading video, please wait...</p>";
+    echo "<p id=\"status\">Connecting to YouTube...</p>";
+    // padding: some browsers buffer small responses before rendering
+    echo str_pad('', 4096, ' ', STR_PAD_RIGHT);
+    flush();
     echo "<div style=\"background:#ddd;border-radius:6px;height:20px;overflow:hidden\">";
     echo "<div id=\"bar\" style=\"background:#d00;height:20px;width:0%;border-radius:6px;transition:width .4s\"></div>";
     echo "</div>";
@@ -134,8 +137,9 @@ if (!file_exists($video_file)) {
         // parse progress percentage, e.g. "[download]  42.3% of ..."
         if (preg_match('/\[download\]\s+([\d.]+)%/', $line, $m)) {
             $pct = min(100, (float)$m[1]);
-            // update the bar and percentage (nl2br-safe, escaped)
-            echo "<script>document.getElementById('bar').style.width='" . $pct . "%';" .
+            // update the bar, percentage and status text
+            echo "<script>document.getElementById('status').textContent='Downloading video, please wait...';" .
+                 "document.getElementById('bar').style.width='" . $pct . "%';" .
                  "document.getElementById('pct').textContent='" . $pct . "';</script>";
             // flush to the browser immediately
             flush();

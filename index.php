@@ -108,11 +108,19 @@ header('Content-Type: text/html; charset=utf-8');
         </noscript>
     <?php else: ?>
         <h1>YouTube URL</h1>
-        <form method="get" action="">
-            <input type="text" name="url" placeholder="YouTube video URL or ID" required
+        <form method="get" action="" autocomplete="off">
+            <input type="text" name="url" id="url" placeholder="YouTube video URL or ID" required
                    value="<?= htmlspecialchars($url_input, ENT_QUOTES, 'UTF-8') ?>">
             <button type="submit">Play</button>
         </form>
+        <script>
+            // clear the input on back/forward navigation (incl. bfcache restore),
+            // so the user does not have to erase the old URL manually
+            window.addEventListener('pageshow', function () {
+                document.getElementById('url').value = '';
+                document.getElementById('url').focus();
+            });
+        </script>
         <?php if ($error): ?>
             <p class="error"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></p>
         <?php endif; ?>

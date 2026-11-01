@@ -107,6 +107,7 @@ header('Content-Type: text/html; charset=utf-8');
             <p><a href="watch.php?v=<?= htmlspecialchars($video_id, ENT_QUOTES, 'UTF-8') ?>">Continue to video</a></p>
         </noscript>
     <?php else: ?>
+        <h1>YouTube URL</h1>
         <form method="get" action="">
             <input type="text" name="url" placeholder="YouTube video URL or ID" required
                    value="<?= htmlspecialchars($url_input, ENT_QUOTES, 'UTF-8') ?>">

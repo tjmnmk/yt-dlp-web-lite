@@ -8,6 +8,11 @@ body {
     margin: 0;
     background: #f5f5f5;
 }
+h1 {
+    font-size: 22px;
+    margin: 0 0 16px;
+    font-weight: 500;
+}
 form {
     display: flex;
     gap: 8px;

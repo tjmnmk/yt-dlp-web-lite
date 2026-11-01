@@ -44,7 +44,13 @@ pip3 install --break-system-packages --upgrade yt-dlp
 
 ## Configuration
 
-**`/etc/php/8.5/apache2/php.ini`** — `max_execution_time = 300` (downloads take longer than the default 30 s)
+**`/etc/php/8.5/apache2/php.ini`**:
+```ini
+; downloads take longer than the default 30 s
+max_execution_time = 300
+; hardening: restrict PHP file access to the webroot, yt-dlp cache, deno binary and tmp (lock files)
+open_basedir = /var/www/html:/var/www/.cache:/usr/local/bin/deno:/tmp
+```
 
 **`config.php`** — if YouTube blocks you, set the cookies file and PO token:
 - cookies: https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies

@@ -83,14 +83,14 @@ if ($url_input !== '') {
     // validate the extracted ID once more (defense in depth)
     if ($video_id === null || !isValidVideoId($video_id)) {
         $video_id = null;
-        $error = 'Neplatná URL YouTube videa';
+        $error = 'Invalid YouTube URL';
     }
 }
 
 header('Content-Type: text/html; charset=utf-8');
 ?>
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -104,13 +104,13 @@ header('Content-Type: text/html; charset=utf-8');
             window.location.replace('watch.php?v=' + encodeURIComponent(<?= json_encode($video_id) ?>));
         </script>
         <noscript>
-            <p><a href="watch.php?v=<?= htmlspecialchars($video_id, ENT_QUOTES, 'UTF-8') ?>">Pokračovat na video</a></p>
+            <p><a href="watch.php?v=<?= htmlspecialchars($video_id, ENT_QUOTES, 'UTF-8') ?>">Continue to video</a></p>
         </noscript>
     <?php else: ?>
         <form method="get" action="">
-            <input type="text" name="url" placeholder="URL YouTube videa nebo ID" required
+            <input type="text" name="url" placeholder="YouTube video URL or ID" required
                    value="<?= htmlspecialchars($url_input, ENT_QUOTES, 'UTF-8') ?>">
-            <button type="submit">Přehrát</button>
+            <button type="submit">Play</button>
         </form>
         <?php if ($error): ?>
             <p class="error"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></p>

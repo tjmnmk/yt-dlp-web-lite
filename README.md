@@ -39,7 +39,7 @@ pip3 install --break-system-packages --upgrade yt-dlp
 # delete downloaded videos (disk space)
 0 5 * * * www-data find /var/www/html/videos/ -type f -name "*.mp4" -delete
 # regular yt-dlp upgrade (YouTube changes often)
-23 * * * * root pip3 install --break-system-packages --upgrade yt-dlp
+*/15 * * * * root yt-dlp --update-to master
 ```
 
 ## Configuration

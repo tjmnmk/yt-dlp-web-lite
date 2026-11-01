@@ -1,4 +1,9 @@
-RewriteEngine on
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /watch.php?path=$1 [NC,L,QSA]
+# block access to partial download files (yt-dlp .part / .ytdl) and lock files
+<FilesMatch "\.(part|ytdl|lock|f\d+\.(html|json))$">
+    Require all denied
+</FilesMatch>
+
+# block direct access to config (contains cookies path / PO token)
+<FilesMatch "^config\.php$">
+    Require all denied
+</FilesMatch>
